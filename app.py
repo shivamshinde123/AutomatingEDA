@@ -10,9 +10,10 @@ def index():
 
 @app.route('/results',methods=['POST'])
 def results():
-    data = request.form['dataset']
-    obj = EDA(data)
-    return render_template('results.html',obj=obj)
+    if request.method == 'POST':
+        data = request.form['dataset']
+        obj = EDA(data)
+        return render_template('results.html', obj=obj)
 
 
 if __name__ == '__main__':
