@@ -11,24 +11,24 @@
     <title>Getting data for analysis</title>
   </head>
   <body class="bg-secondary">
-  <div class="container">
-    <h3 class="text-center mt-3 ">Exploratoray Data Analysis</h3>
-  </div>
-  <div class="container">
-    <div class="m-5">
-      <h5>Please note the following points before entering the dataset file:</h5>
-      <ul>
-        <li>The dataset file should be csv file.</li>
-        <li>The dependent feature should be the last column in the dataset file.</li>
-      </ul>
-
-      <form method="post", action="/results">
-        <label for="dataset" class="form-label">Please select the dataset file from your computer:</label>
-        <input class="form-control" type="file" id="dataset" name="dataset">
-        <button type="submit" class="btn btn-outline-dark mt-3">Submit</button>
-      </form>
+    <div class="container">
+      <h3 class="text-center mt-3 ">Exploratoray Data Analysis</h3>
     </div>
-  </div>
+    <div class="container">
+      <div class="m-5">
+        <h5>Please note the following points before entering the dataset file:</h5>
+        <ul>
+          <li>The dataset file should be csv file.</li>
+          <li>The dependent feature should be the last column in the dataset file.</li>
+        </ul>
+
+        <form method="post", action="/results">
+          <label for="dataset" class="form-label">Please provide the filepath to the dataset file:</label>
+          <input class="form-control" type="text" id="dataset" name="dataset_url">
+          <button type="submit" class="btn btn-outline-dark mt-3">Submit</button>
+        </form>
+      </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </body>
