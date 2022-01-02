@@ -1,6 +1,10 @@
 
 #Imports
 import os.path
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Creating a class called EDA which will contain all the methods needed for the exploratory data analysis of given file
 class EDA:
@@ -47,3 +51,45 @@ class EDA:
         print(f"Numerical continuous features in the dataset are: {numerical_continuous_features}")
         print(f"Categorical features in the dataset are: {categorical_features}")
 
+    def percentage_of_na(self):
+        for feature in self.data.columns:
+            print(f"The feature {feature} has {self.data[feature].isnull().mean()*100} % missing values")
+
+    def graphs(self):
+        numerical_features = [feature for feature in self.data.columns if self.data[feature].dtypes != 'O']
+        categorical_features = [feature for feature in self.data.columns if feature not in numerical_features]
+        numerical_discrete_features = [feature for feature in numerical_features if self.data[feature].nunique() < 10]
+        numerical_continuous_features = [feature for feature in numerical_features if feature not in numerical_discrete_features]
+
+        print("Visualizing relationship between dependent feature and numerical discrete features:/n")
+        try:
+            for feature in numerical_discrete_features:
+                self.data.groupby(feature)[self.data.columns[-1]].median().plot(kind='bar')
+                plt.xlabel(feature)
+                plt.ylabel('Median value')
+                plt.title(feature)
+        except Exception as e:
+            print("Error occurred while visualizing discrete numerical features.")
+            print("Error: "+e)
+
+        print("Visualizing relationship between dependent feature and numerical continuous features:/n")
+        try:
+            for feature in numerical_continuous_features:
+                self.data[feature].hist()
+                plt.xlabel(feature)
+                plt.ylabel('Count')
+                plt.title(feature)
+        except Exception as e:
+            print("Error occurred while visualizing continuous numerical features.")
+            print("Error: "+e)
+
+        print("Visualizing relationship between dependent feature and categorical features:/n")
+        try:
+            for feature in categorical_features:
+                self.data.groupby(feature)[self.data.columns[-1]].median().plot(kind='bar')
+                plt.xlabel(feature)
+                plt.ylabel('Median value')
+                plt.title(feature)
+        except Exception as e:
+            print("Error occurred while visualizing categorical feature.")
+            print("Error: "+e)
