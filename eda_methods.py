@@ -1,10 +1,8 @@
 
 #Imports
 import os.path
-import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
+
 
 # Creating a class called EDA which will contain all the methods needed for the exploratory data analysis of given file
 class EDA:
@@ -13,53 +11,79 @@ class EDA:
         # Getting the extension of data file entered
         datafile_extension = os.path.splitext(data)[1]
         # Checking whether the entered file is csv file or not
-        if datafile_extension == ".csv":
-            self.data = data
-        else:
-            print("Please enter a file with .csv extension")
+        self.data = data
+
 
     ## Creating methods to get the basic info of entered data file
     def shape_of_dataset(self):
-        print(f"The shape of the dataset is {self.data.shape}/n")
+        try:
+            print(f"The shape of the dataset is {self.data.shape}/n")
+        except Exception as e:
+            print(e)
 
     def no_of_rows(self):
-        print(f"Dataset has {self.data.shape[0]} rows/n")
+        try:
+            print(f"Dataset has {self.data.shape[0]} rows/n")
+        except Exception as e:
+            print(e)
 
     def no_of_columns(self):
-        print(f"Dataset has {self.data.shape[1]} columns/n")
+        try:
+            print(f"Dataset has {self.data.shape[1]} columns/n")
+        except Exception as e:
+            print(e)
 
     def dataset_info(self):
-        print("Dataset Info:")
-        return self.data.info()
+        try:
+            print("Dataset Info:")
+            return self.data.info()
+        except Exception as e:
+            print(e)
 
     def dataset_description(self):
-        print("/n")
-        return self.data.describe()
+        try:
+            print("/n")
+            return self.data.describe()
+        except Exception as e:
+            print(e)
 
     def uniques_values(self):
-        print('/n')
-        for feature in self.data.columns:
-            print(f"The feature {feature} has {self.data[feature].nunique()} unique values")
-        print('/n')
-    def feature_types(self):
-        numerical_features = [feature for feature in self.data.columns if self.data[feature].dtypes != 'O']
-        categorical_features = [feature for feature in self.data.columns if feature not in numerical_features]
-        numerical_discrete_features = [feature for feature in numerical_features if self.data[feature].nunique() < 10]
-        numerical_continuous_features = [feature for feature in numerical_features if feature not in numerical_discrete_features]
+        try:
+            print('/n')
+            for feature in self.data.columns:
+                print(f"The feature {feature} has {self.data[feature].nunique()} unique values")
+            print('/n')
+        except Exception as e:
+            print(e)
 
-        print(f"Numerical discrete features in the dataset are: {numerical_discrete_features}")
-        print(f"Numerical continuous features in the dataset are: {numerical_continuous_features}")
-        print(f"Categorical features in the dataset are: {categorical_features}")
+    def feature_types(self):
+        try:
+            numerical_features = [feature for feature in self.data.columns if self.data[feature].dtypes != 'O']
+            categorical_features = [feature for feature in self.data.columns if feature not in numerical_features]
+            numerical_discrete_features = [feature for feature in numerical_features if self.data[feature].nunique() < 10]
+            numerical_continuous_features = [feature for feature in numerical_features if feature not in numerical_discrete_features]
+
+            print(f"Numerical discrete features in the dataset are: {numerical_discrete_features}")
+            print(f"Numerical continuous features in the dataset are: {numerical_continuous_features}")
+            print(f"Categorical features in the dataset are: {categorical_features}")
+        except Exception as e:
+            print(e)
 
     def percentage_of_na(self):
-        for feature in self.data.columns:
-            print(f"The feature {feature} has {self.data[feature].isnull().mean()*100} % missing values")
+        try:
+            for feature in self.data.columns:
+                print(f"The feature {feature} has {self.data[feature].isnull().mean()*100} % missing values")
+        except Exception as e:
+            print(e)
 
     def graphs(self):
-        numerical_features = [feature for feature in self.data.columns if self.data[feature].dtypes != 'O']
-        categorical_features = [feature for feature in self.data.columns if feature not in numerical_features]
-        numerical_discrete_features = [feature for feature in numerical_features if self.data[feature].nunique() < 10]
-        numerical_continuous_features = [feature for feature in numerical_features if feature not in numerical_discrete_features]
+        try:
+            numerical_features = [feature for feature in self.data.columns if self.data[feature].dtypes != 'O']
+            categorical_features = [feature for feature in self.data.columns if feature not in numerical_features]
+            numerical_discrete_features = [feature for feature in numerical_features if self.data[feature].nunique() < 10]
+            numerical_continuous_features = [feature for feature in numerical_features if feature not in numerical_discrete_features]
+        except Exception as e:
+            print(e)
 
         print("Visualizing relationship between dependent feature and numerical discrete features:/n")
         try:
@@ -68,9 +92,10 @@ class EDA:
                 plt.xlabel(feature)
                 plt.ylabel('Median value')
                 plt.title(feature)
+                plt.show()
         except Exception as e:
             print("Error occurred while visualizing discrete numerical features.")
-            print("Error: "+e)
+            print("Error: "+str(e))
 
         print("Visualizing relationship between dependent feature and numerical continuous features:/n")
         try:
@@ -79,9 +104,10 @@ class EDA:
                 plt.xlabel(feature)
                 plt.ylabel('Count')
                 plt.title(feature)
+                plt.show()
         except Exception as e:
             print("Error occurred while visualizing continuous numerical features.")
-            print("Error: "+e)
+            print("Error: "+str(e))
 
         print("Visualizing relationship between dependent feature and categorical features:/n")
         try:
@@ -90,6 +116,7 @@ class EDA:
                 plt.xlabel(feature)
                 plt.ylabel('Median value')
                 plt.title(feature)
+                plt.show()
         except Exception as e:
             print("Error occurred while visualizing categorical feature.")
-            print("Error: "+e)
+            print("Error: "+str(e))
