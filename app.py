@@ -16,7 +16,6 @@ def results():
         obj.report_creation()
         return render_template('results.html')
 
-
 if __name__ == '__main__':
     app.run(debug=True)
 
